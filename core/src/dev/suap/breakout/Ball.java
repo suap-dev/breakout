@@ -6,14 +6,14 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 public class Ball {
     int x;
     int y;
-    int size;
+    int radius;
     int xSpeed;
     int ySpeed;
 
-    public Ball(int x, int y, int size, int xSpeed, int ySpeed) {
+    public Ball(int x, int y, int radius, int xSpeed, int ySpeed) {
         this.x = x;
         this.y = y;
-        this.size = size;
+        this.radius = radius;
         this.xSpeed = xSpeed;
         this.ySpeed = ySpeed;
     }
@@ -21,16 +21,16 @@ public class Ball {
     public void update() {
         x += xSpeed;
         y += ySpeed;
-        if (x < 0 || x > Gdx.graphics.getWidth()) {
+
+        if (x - radius < 0 || x + radius > Gdx.graphics.getWidth()) {
             xSpeed = -xSpeed;
         }
-        if (y < 0 || y > Gdx.graphics.getHeight()) {
+        if (y - radius < 0 || y + radius > Gdx.graphics.getHeight()) {
             ySpeed = -ySpeed;
         }
     }
 
     public void draw(ShapeRenderer shapeRenderer) {
-        shapeRenderer.circle(x, y, size);
+        shapeRenderer.circle(x, y, radius);
     }
-
 }
