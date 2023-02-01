@@ -1,31 +1,41 @@
 package dev.suap.breakout;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.utils.Array;
+
+import java.util.Random;
 
 public class BreakoutGame extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
-	
+	ShapeRenderer shapeRenderer;
+	Array<Ball> balls = new Array<>();
+	Random random = new Random();
+
 	@Override
-	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+	public void create() {
+		shapeRenderer = new ShapeRenderer();
+		for (int i = 0; i < 10; i++) {
+			balls.add(new Ball(
+					random.nextInt(Gdx.graphics.getWidth()),
+					random.nextInt(Gdx.graphics.getHeight()),
+					random.nextInt(100),
+					random.nextInt(15),
+					random.nextInt(15)));
+		}
+
 	}
 
 	@Override
-	public void render () {
-		ScreenUtils.clear(1, 0, 0, 1);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
-	}
-	
-	@Override
-	public void dispose () {
-		batch.dispose();
-		img.dispose();
+	public void render() {
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		shapeRenderer.begin(ShapeType.Filled);
+		for (Ball ball : balls) {
+			ball.update();
+			ball.draw(shapeRenderer);
+		}
+		shapeRenderer.end();
 	}
 }
