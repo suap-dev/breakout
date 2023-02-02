@@ -18,7 +18,7 @@ public class Paddle {
 
     public void update() {
         this.setOriginX(Gdx.input.getX());
-        this.setOriginY(Gdx.input.getY());
+        // this.setOriginY(Gdx.input.getY()); // usefull for testing
     }
 
     public void draw(ShapeRenderer renderer) {

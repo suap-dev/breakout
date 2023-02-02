@@ -21,7 +21,7 @@ public class BreakoutGame extends ApplicationAdapter {
 		ball = new Ball(
 				width / 2, height / 2,
 				15,
-				5, 5);
+				4, 4);
 
 		paddle = new Paddle(
 				width / 2, 20,
@@ -31,7 +31,7 @@ public class BreakoutGame extends ApplicationAdapter {
 
 	@Override
 	public void render() {
-		ball.exposeCollision(paddle);
+		ball.handleCollision(paddle);
 		paddle.update();
 		ball.update();
 

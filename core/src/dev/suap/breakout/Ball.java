@@ -11,6 +11,7 @@ public class Ball {
     int xSpeed;
     int ySpeed;
     Color color = Color.WHITE;
+    private boolean inCollision = false;
 
     public Ball(int x, int y, int radius, int xSpeed, int ySpeed) {
         this.x = x;
@@ -37,11 +38,12 @@ public class Ball {
         renderer.circle(x, y, radius);
     }
 
-    public void exposeCollision(Paddle paddle) {
-        if (collidesWith(paddle)) {
-            color = Color.GREEN;
-        } else {
-            color = Color.WHITE;
+    public void handleCollision(Paddle paddle) {
+        if (!inCollision && collidesWith(paddle)) {
+            inCollision = true;
+            ySpeed = Math.abs(ySpeed);
+        } else if (!collidesWith(paddle)) {
+            inCollision = false;
         }
     }
 
