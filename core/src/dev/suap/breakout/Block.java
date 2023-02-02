@@ -2,6 +2,7 @@ package dev.suap.breakout;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.Array;
 
 public class Block {
     int x;
@@ -23,6 +24,25 @@ public class Block {
 
     public void draw(ShapeRenderer renderer) {
         renderer.rect(x, y, width, height);
+    }
+
+    public Array<Block> blockBatch(int x, int y, int width, int height, int columns, int rows, int spacingX,
+            int spacingY) {
+        Array<Block> blocks = new Array<>();
+
+        int blockWidth = (width - spacingX * columns) / (1 + columns);
+        int blockHeight = (height - spacingY * rows) / (1 + rows);
+
+        int deltaX = width - blockWidth / (columns - 1);
+        int deltaY = height - blockHeight / (rows - 1);
+
+        for (int blockY = y; blockY < height - blockHeight; blockY += deltaY) {
+            for (int blockX = x; blockX < width - blockWidth; blockX += deltaX) {
+                // TODO
+            }
+        }
+
+        return blocks;
     }
 
     void setOriginX(int x) {
