@@ -7,30 +7,38 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.graphics.GL20;
 
 public class BreakoutGame extends ApplicationAdapter {
-	ShapeRenderer shapeRenderer;
+	ShapeRenderer renderer;
 	Ball ball;
+	Paddle paddle;
 
 	@Override
 	public void create() {
-		shapeRenderer = new ShapeRenderer();
+		renderer = new ShapeRenderer();
 
 		int width = Gdx.graphics.getWidth();
 		int height = Gdx.graphics.getHeight();
 
 		ball = new Ball(
 				width / 2, height / 2,
-				20,
+				15,
 				5, 5);
+
+		paddle = new Paddle(
+				width / 2, 20,
+				120, 20);
+
 	}
 
 	@Override
 	public void render() {
+		paddle.update();
 		ball.update();
 
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-		shapeRenderer.begin(ShapeType.Filled);
-		ball.draw((shapeRenderer));		
-		shapeRenderer.end();
+
+		renderer.begin(ShapeType.Filled);
+		paddle.draw(renderer);
+		ball.draw(renderer);
+		renderer.end();
 	}
 }

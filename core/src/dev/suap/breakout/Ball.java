@@ -30,7 +30,7 @@ public class Ball {
         }
     }
 
-    public void draw(ShapeRenderer shapeRenderer) {
-        shapeRenderer.circle(x, y, radius);
+    public void draw(ShapeRenderer renderer) {
+        renderer.circle(x, y, radius);
     }
 }
