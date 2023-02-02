@@ -23,14 +23,29 @@ public class Paddle {
 
     public void draw(ShapeRenderer renderer) {
         renderer.rect(x, y, width, height);
-        // renderer.rec
     }
 
-    private void setOriginX(int x) {
+    void setOriginX(int x) {
         this.x = x - width / 2;
     }
 
-    private void setOriginY(int y) {
+    void setOriginY(int y) {
         this.y = Gdx.graphics.getHeight() - y - height / 2;
+    }
+
+    int getLeft() {
+        return x;
+    }
+
+    int getRight() {
+        return x + width;
+    }
+
+    int getTop() {
+        return y + height;
+    }
+
+    int getBottom() {
+        return y;
     }
 }

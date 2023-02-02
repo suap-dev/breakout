@@ -1,6 +1,7 @@
 package dev.suap.breakout;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Ball {
@@ -9,6 +10,7 @@ public class Ball {
     int radius;
     int xSpeed;
     int ySpeed;
+    Color color = Color.WHITE;
 
     public Ball(int x, int y, int radius, int xSpeed, int ySpeed) {
         this.x = x;
@@ -31,6 +33,41 @@ public class Ball {
     }
 
     public void draw(ShapeRenderer renderer) {
+        renderer.setColor(color);
         renderer.circle(x, y, radius);
+    }
+
+    public void exposeCollision(Paddle paddle) {
+        if (collidesWith(paddle)) {
+            color = Color.GREEN;
+        } else {
+            color = Color.WHITE;
+        }
+    }
+
+    private boolean collidesWith(Paddle paddle) {
+        return paddle.getLeft() <= this.getRight()
+                &&
+                paddle.getRight() >= this.getLeft()
+                &&
+                paddle.getTop() >= this.getBottom()
+                &&
+                paddle.getBottom() <= this.getTop();
+    }
+
+    int getLeft() {
+        return x - radius;
+    }
+
+    int getRight() {
+        return x + radius;
+    }
+
+    int getTop() {
+        return y + radius;
+    }
+
+    int getBottom() {
+        return y - radius;
     }
 }

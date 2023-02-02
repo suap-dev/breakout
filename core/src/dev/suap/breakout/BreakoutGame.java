@@ -31,6 +31,7 @@ public class BreakoutGame extends ApplicationAdapter {
 
 	@Override
 	public void render() {
+		ball.exposeCollision(paddle);
 		paddle.update();
 		ball.update();
 
