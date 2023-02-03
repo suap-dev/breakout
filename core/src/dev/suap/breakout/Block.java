@@ -26,19 +26,25 @@ public class Block {
         renderer.rect(x, y, width, height);
     }
 
-    public Array<Block> blockBatch(int x, int y, int width, int height, int columns, int rows, int spacingX,
-            int spacingY) {
+    public static Array<Block> blockBatch(
+            int x, int y,
+            int width, int height,
+            int columns, int rows,
+            int horizontalSpacing, int verticalSpacing) {
         Array<Block> blocks = new Array<>();
 
-        int blockWidth = (width - spacingX * columns) / (1 + columns);
-        int blockHeight = (height - spacingY * rows) / (1 + rows);
+        int blockWidth = (width - horizontalSpacing * (columns - 1)) / columns;
+        int blockHeight = (height - verticalSpacing * (rows - 1)) / rows;
 
-        int deltaX = width - blockWidth / (columns - 1);
-        int deltaY = height - blockHeight / (rows - 1);
+        int deltaX = (width - blockWidth) / (columns - 1);
+        int deltaY = (height - blockHeight) / (rows - 1);
 
-        for (int blockY = y; blockY < height - blockHeight; blockY += deltaY) {
-            for (int blockX = x; blockX < width - blockWidth; blockX += deltaX) {
-                // TODO
+        int maxX = x + width;
+        int maxY = y + height;
+
+        for (int blockY = y; blockY <= maxY - blockHeight; blockY += deltaY) {
+            for (int blockX = x; blockX <= maxX - blockWidth; blockX += deltaX) {
+                blocks.add(new Block(blockX, blockY, blockWidth, blockHeight));
             }
         }
 
