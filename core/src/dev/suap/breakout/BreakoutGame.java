@@ -4,12 +4,14 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.graphics.GL20;
 
 public class BreakoutGame extends ApplicationAdapter {
 	ShapeRenderer renderer;
 	Ball ball;
 	Paddle paddle;
+	Array<Block> blocks;
 
 	@Override
 	public void create() {
@@ -27,6 +29,11 @@ public class BreakoutGame extends ApplicationAdapter {
 				width / 2, 20,
 				120, 20);
 
+		blocks = Block.blockBatch(
+				0 + 10, height / 2,
+				width - 20, height / 2,
+				6, 6,
+				15, 15);
 	}
 
 	@Override
@@ -38,6 +45,9 @@ public class BreakoutGame extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		renderer.begin(ShapeType.Filled);
+		for (Block b : blocks) {
+			b.draw(renderer);
+		}
 		paddle.draw(renderer);
 		ball.draw(renderer);
 		renderer.end();
