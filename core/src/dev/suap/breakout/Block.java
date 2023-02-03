@@ -49,7 +49,7 @@ public class Block {
         int deltaY = (height - blockHeight) / (rows - 1);
 
         for (int blockY = bottom; blockY + blockHeight <= top; blockY += deltaY) {
-            for (int blockX = left; blockX + blockWidth <= right + 0.001; blockX += deltaX) {
+            for (int blockX = left; blockX + blockWidth <= right; blockX += deltaX) {
                 blocks.add(new Block(blockX, blockY, blockWidth, blockHeight));
             }
         }
