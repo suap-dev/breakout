@@ -3,6 +3,7 @@ package dev.suap.breakout;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.math.Vector2;
 
 public class Block {
     int x;
@@ -27,11 +28,19 @@ public class Block {
     }
 
     public static Array<Block> blockBatch(
-            int x, int y,
-            int width, int height,
+            Vector2 bottomLeft, Vector2 topRight,
             int columns, int rows,
             int horizontalSpacing, int verticalSpacing) {
+
         Array<Block> blocks = new Array<>();
+
+        int left = (int) bottomLeft.x;
+        int right = (int) topRight.x;
+        int bottom = (int) bottomLeft.y;
+        int top = (int) topRight.y;
+
+        int width = right - left;
+        int height = top - bottom;
 
         int blockWidth = (width - horizontalSpacing * (columns - 1)) / columns;
         int blockHeight = (height - verticalSpacing * (rows - 1)) / rows;
@@ -39,11 +48,8 @@ public class Block {
         int deltaX = (width - blockWidth) / (columns - 1);
         int deltaY = (height - blockHeight) / (rows - 1);
 
-        int maxX = x + width;
-        int maxY = y + height;
-
-        for (int blockY = y; blockY <= maxY - blockHeight; blockY += deltaY) {
-            for (int blockX = x; blockX <= maxX - blockWidth; blockX += deltaX) {
+        for (int blockY = bottom; blockY + blockHeight <= top; blockY += deltaY) {
+            for (int blockX = left; blockX + blockWidth <= right + 0.001; blockX += deltaX) {
                 blocks.add(new Block(blockX, blockY, blockWidth, blockHeight));
             }
         }

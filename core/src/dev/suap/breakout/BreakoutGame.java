@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.graphics.GL20;
 
@@ -30,8 +31,8 @@ public class BreakoutGame extends ApplicationAdapter {
 				120, 20);
 
 		blocks = Block.blockBatch(
-				0 + 10, height / 2,
-				width - 20, height / 2,
+				new Vector2((float) 0 + 8, ((float) height / 2)),
+				new Vector2((float) width - 7, (float) height - 5),
 				6, 6,
 				15, 15);
 	}
