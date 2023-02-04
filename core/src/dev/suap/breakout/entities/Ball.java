@@ -1,8 +1,10 @@
-package dev.suap.breakout;
+package dev.suap.breakout.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+
+import dev.suap.breakout.interfaces.BoundingBox;
 
 public class Ball {
     int x;
@@ -41,20 +43,22 @@ public class Ball {
     public void handleCollision(Paddle paddle) {
         if (!inCollision && collidesWith(paddle)) {
             inCollision = true;
-            ySpeed = Math.abs(ySpeed);
+            // TODO: make sure this is really unnecessary anymore:
+            // ySpeed = Math.abs(ySpeed); -- before we were checking if collision persists
+            ySpeed = -ySpeed;
         } else if (!collidesWith(paddle)) {
             inCollision = false;
         }
     }
 
-    private boolean collidesWith(Paddle paddle) {
-        return paddle.getLeft() <= this.getRight()
+    private boolean collidesWith(BoundingBox box) {
+        return box.getLeft() <= this.getRight()
                 &&
-                paddle.getRight() >= this.getLeft()
+                box.getRight() >= this.getLeft()
                 &&
-                paddle.getTop() >= this.getBottom()
+                box.getTop() >= this.getBottom()
                 &&
-                paddle.getBottom() <= this.getTop();
+                box.getBottom() <= this.getTop();
     }
 
     int getLeft() {

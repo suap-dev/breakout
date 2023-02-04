@@ -1,9 +1,11 @@
-package dev.suap.breakout;
+package dev.suap.breakout.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-public class Paddle {
+import dev.suap.breakout.interfaces.BoundingBox;
+
+public class Paddle implements BoundingBox {
     int x;
     int y;
     int width;
@@ -33,19 +35,19 @@ public class Paddle {
         this.y = Gdx.graphics.getHeight() - y - height / 2;
     }
 
-    int getLeft() {
+    public int getLeft() {
         return x;
     }
 
-    int getRight() {
+    public int getRight() {
         return x + width;
     }
 
-    int getTop() {
+    public int getTop() {
         return y + height;
     }
 
-    int getBottom() {
+    public int getBottom() {
         return y;
     }
 }

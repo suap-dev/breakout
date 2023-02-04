@@ -1,11 +1,14 @@
-package dev.suap.breakout;
+package dev.suap.breakout.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
+
+import dev.suap.breakout.interfaces.BoundingBox;
+
 import com.badlogic.gdx.math.Vector2;
 
-public class Block {
+public class Block implements BoundingBox {
     int x;
     int y;
     int width;
@@ -65,19 +68,19 @@ public class Block {
         this.y = Gdx.graphics.getHeight() - y - height / 2;
     }
 
-    int getLeft() {
+    public int getLeft() {
         return x;
     }
 
-    int getRight() {
+    public int getRight() {
         return x + width;
     }
 
-    int getTop() {
+    public int getTop() {
         return y + height;
     }
 
-    int getBottom() {
+    public int getBottom() {
         return y;
     }
 }

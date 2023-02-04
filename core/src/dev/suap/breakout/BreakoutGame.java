@@ -6,6 +6,11 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+
+import dev.suap.breakout.entities.Ball;
+import dev.suap.breakout.entities.Block;
+import dev.suap.breakout.entities.Paddle;
+
 import com.badlogic.gdx.graphics.GL20;
 
 public class BreakoutGame extends ApplicationAdapter {
