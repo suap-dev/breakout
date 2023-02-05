@@ -3,13 +3,14 @@ package dev.suap.breakout.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-import dev.suap.breakout.interfaces.BoundingBox;
+import dev.suap.breakout.interfaces.Collidable;
 
-public class Paddle implements BoundingBox {
+public class Paddle implements Collidable {
     int x;
     int y;
     int width;
     int height;
+    boolean inCollision = false;
 
     public Paddle(int originX, int originY, int width, int height) {
         this.x = originX - width / 2;
@@ -20,7 +21,7 @@ public class Paddle implements BoundingBox {
 
     public void update() {
         this.setOriginX(Gdx.input.getX());
-        // this.setOriginY(Gdx.input.getY()); // usefull for testing
+        this.setOriginY(Gdx.input.getY()); // usefull for testing
     }
 
     public void draw(ShapeRenderer renderer) {
@@ -49,5 +50,15 @@ public class Paddle implements BoundingBox {
 
     public int getBottom() {
         return y;
+    }
+
+    @Override
+    public void setInCollision(boolean inCollision) {
+        this.inCollision = inCollision;       
+    }
+
+    @Override
+    public boolean isInCollision() {
+        return inCollision;
     }
 }

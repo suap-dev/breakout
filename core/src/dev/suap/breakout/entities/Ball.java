@@ -4,9 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-import dev.suap.breakout.interfaces.BoundingBox;
+import dev.suap.breakout.interfaces.Collidable;
 
-public class Ball implements BoundingBox {
+public class Ball implements Collidable {
     int x;
     int y;
     int radius;
@@ -40,25 +40,38 @@ public class Ball implements BoundingBox {
         renderer.circle(x, y, radius);
     }
 
-    public void handleCollision(Paddle paddle) {
-        if (!inCollision && collidesWith(paddle)) {
-            inCollision = true;
-            // TODO: make sure this is really unnecessary anymore:
-            // ySpeed = Math.abs(ySpeed); -- before we were checking if collision persists
-            ySpeed = -ySpeed;
-        } else if (!collidesWith(paddle)) {
-            inCollision = false;
+    public void handleCollision(Collidable other) {
+        boolean isCollidingWithOther = isColliding(other);
+
+        if (!this.inCollision && !other.isInCollision() && isCollidingWithOther) {
+            this.inCollision = true;
+            other.setInCollision(true);
+
+            this.ySpeed = -this.ySpeed;
+        } else if (this.inCollision && other.isInCollision() && !isCollidingWithOther) {
+            this.inCollision = false;
+            other.setInCollision(false);
         }
     }
 
-    private boolean collidesWith(BoundingBox box) {
-        return box.getLeft() <= this.getRight()
+    public boolean isColliding(Collidable other) {
+        return this.getLeft() < other.getRight()
                 &&
-                box.getRight() >= this.getLeft()
+                this.getRight() > other.getLeft()
                 &&
-                box.getTop() >= this.getBottom()
+                this.getBottom() < other.getTop()
                 &&
-                box.getBottom() <= this.getTop();
+                this.getTop() > other.getBottom();
+    }
+
+    @Override
+    public void setInCollision(boolean inCollision) {
+        this.inCollision = inCollision;
+    }
+
+    @Override
+    public boolean isInCollision() {
+        return inCollision;
     }
 
     public int getLeft() {

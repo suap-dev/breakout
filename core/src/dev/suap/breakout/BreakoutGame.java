@@ -27,7 +27,7 @@ public class BreakoutGame extends ApplicationAdapter {
 		int height = Gdx.graphics.getHeight();
 
 		ball = new Ball(
-				width / 2, height / 2,
+				width / 2, height / 4,
 				15,
 				4, 4);
 
@@ -44,6 +44,10 @@ public class BreakoutGame extends ApplicationAdapter {
 
 	@Override
 	public void render() {
+		for(Block b: blocks) {
+			ball.handleCollision(b);
+		}
+
 		ball.handleCollision(paddle);
 		paddle.update();
 		ball.update();

@@ -4,15 +4,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
 
-import dev.suap.breakout.interfaces.BoundingBox;
+import dev.suap.breakout.interfaces.Collidable;
 
 import com.badlogic.gdx.math.Vector2;
 
-public class Block implements BoundingBox {
+public class Block implements Collidable {
     int x;
     int y;
     int width;
     int height;
+    boolean inCollision = false;
 
     public Block(int x, int y, int width, int height) {
         this.x = x;
@@ -82,5 +83,16 @@ public class Block implements BoundingBox {
 
     public int getBottom() {
         return y;
+    }
+
+    @Override
+    public void setInCollision(boolean inCollision) {
+        this.inCollision = inCollision;
+        
+    }
+
+    @Override
+    public boolean isInCollision() {
+        return this.inCollision;
     }
 }
