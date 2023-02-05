@@ -22,11 +22,6 @@ public class Block implements Collidable {
         this.width = width;
     }
 
-    public void update() {
-        this.setOriginX(Gdx.input.getX());
-        // this.setOriginY(Gdx.input.getY()); // usefull for testing
-    }
-
     public void draw(ShapeRenderer renderer) {
         renderer.rect(x, y, width, height);
     }
@@ -86,13 +81,17 @@ public class Block implements Collidable {
     }
 
     @Override
-    public void setInCollision(boolean inCollision) {
-        this.inCollision = inCollision;
-        
+    public boolean isInCollision() {
+        return this.inCollision;
     }
 
     @Override
-    public boolean isInCollision() {
-        return this.inCollision;
+    public void markAsColliding() {
+        this.inCollision = true;        
+    }
+
+    @Override
+    public void resolveCollision() {
+        this.inCollision = false;
     }
 }

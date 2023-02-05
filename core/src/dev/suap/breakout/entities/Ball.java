@@ -45,12 +45,12 @@ public class Ball implements Collidable {
 
         if (!this.inCollision && !other.isInCollision() && isCollidingWithOther) {
             this.inCollision = true;
-            other.setInCollision(true);
+            other.markAsColliding();
 
             this.ySpeed = -this.ySpeed;
         } else if (this.inCollision && other.isInCollision() && !isCollidingWithOther) {
             this.inCollision = false;
-            other.setInCollision(false);
+            other.resolveCollision();
         }
     }
 
@@ -62,12 +62,7 @@ public class Ball implements Collidable {
                 this.getBottom() < other.getTop()
                 &&
                 this.getTop() > other.getBottom();
-    }
-
-    @Override
-    public void setInCollision(boolean inCollision) {
-        this.inCollision = inCollision;
-    }
+    }    
 
     @Override
     public boolean isInCollision() {
@@ -88,5 +83,15 @@ public class Ball implements Collidable {
 
     public int getBottom() {
         return y - radius;
+    }
+
+    @Override
+    public void markAsColliding() {
+        this.inCollision = true;        
+    }
+
+    @Override
+    public void resolveCollision() {
+        this.inCollision = false;
     }
 }

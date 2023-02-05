@@ -53,12 +53,18 @@ public class Paddle implements Collidable {
     }
 
     @Override
-    public void setInCollision(boolean inCollision) {
-        this.inCollision = inCollision;       
+    public boolean isInCollision() {
+        return inCollision;
     }
 
     @Override
-    public boolean isInCollision() {
-        return inCollision;
+    public void markAsColliding() {
+        this.inCollision = true;
+        
+    }
+
+    @Override
+    public void resolveCollision() {
+        this.inCollision = false;
     }
 }

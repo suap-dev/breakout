@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Array.ArrayIterator;
 
 import dev.suap.breakout.entities.Ball;
 import dev.suap.breakout.entities.Block;
@@ -17,7 +18,10 @@ public class BreakoutGame extends ApplicationAdapter {
 	ShapeRenderer renderer;
 	Ball ball;
 	Paddle paddle;
+
 	Array<Block> blocks;
+	ArrayIterator<Block> iter;
+	Block b;
 
 	@Override
 	public void create() {
@@ -44,8 +48,14 @@ public class BreakoutGame extends ApplicationAdapter {
 
 	@Override
 	public void render() {
-		for(Block b: blocks) {
+		for (iter = blocks.iterator(); iter.hasNext();) {
+			b = iter.next();
 			ball.handleCollision(b);
+			if (b.isInCollision()) {
+				iter.remove(); // TODO: this remove() is not working as intended because ball can collide with
+								// 2 blocks at the same time - it should not be possible
+				ball.resolveCollision();
+			}
 		}
 
 		ball.handleCollision(paddle);

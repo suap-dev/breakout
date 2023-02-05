@@ -6,6 +6,7 @@ public interface Collidable {
     int getBottom();
     int getTop();
     
-    void setInCollision(boolean inCollision);
+    void markAsColliding();
+    void resolveCollision();
     boolean isInCollision();
 }
