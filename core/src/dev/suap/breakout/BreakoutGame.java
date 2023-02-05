@@ -47,29 +47,36 @@ public class BreakoutGame extends ApplicationAdapter {
 	}
 
 	@Override
-	public void render() {
+	public void render() {		
+		// paddle update handles the mouse movement as well
+		paddle.update();
+		// ball moves on its own
+		ball.update();
+
+		// begin creating the frame
+		renderer.begin(ShapeType.Filled);
+
+		// handle collision for all blocks and then draw them
 		for (iter = blocks.iterator(); iter.hasNext();) {
 			b = iter.next();
 			ball.handleCollision(b);
 			if (b.isInCollision()) {
-				iter.remove(); // TODO: this remove() is not working as intended because ball can collide with
-								// 2 blocks at the same time - it should not be possible
+				iter.remove();
 				ball.resolveCollision();
+			} else {
+				b.draw(renderer);
 			}
 		}
-
+		// handle collision with the paddle
 		ball.handleCollision(paddle);
-		paddle.update();
-		ball.update();
 
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-		renderer.begin(ShapeType.Filled);
-		for (Block b : blocks) {
-			b.draw(renderer);
-		}
+		// draw the ball and the paddle
 		paddle.draw(renderer);
-		ball.draw(renderer);
+		ball.draw(renderer);		
+
+		// clear the screen
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		// and put the frame in it
 		renderer.end();
 	}
 }
