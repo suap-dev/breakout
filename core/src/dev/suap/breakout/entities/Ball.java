@@ -14,7 +14,7 @@ public class Ball implements Collidable {
     int ySpeed;
     Color color = Color.WHITE;
     private boolean inCollision = false;
-    private boolean isCollisionVertical = false;
+    // private boolean isCollisionVertical = false; // not really needed
     private boolean isCollisionHorizontal = false;
 
     public Ball(int x, int y, int radius, int xSpeed, int ySpeed) {
@@ -53,7 +53,7 @@ public class Ball implements Collidable {
                 this.ySpeed = -this.ySpeed;
             else
                 this.xSpeed = -this.xSpeed;
-                
+
         } else if (this.inCollision && other.isInCollision() && !isCollidingWithOther) {
             this.inCollision = false;
             other.resolveCollision();
@@ -72,14 +72,13 @@ public class Ball implements Collidable {
     }
 
     private boolean isCollidingVertically(Collidable other) {
-        isCollisionVertical = this.getLeft() < other.getRight()
+        return this.getLeft() < other.getRight()
                 &&
                 this.getRight() > other.getLeft()
                 &&
                 this.y < other.getTop()
                 &&
                 this.y > other.getBottom();
-        return isCollisionVertical;
     }
 
     public boolean isColliding(Collidable other) {
