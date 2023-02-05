@@ -55,14 +55,24 @@ public class Ball implements Collidable {
     }
 
     public boolean isColliding(Collidable other) {
-        return this.getLeft() < other.getRight()
+        return this.x < other.getRight()
                 &&
-                this.getRight() > other.getLeft()
+                this.x > other.getLeft()
                 &&
                 this.getBottom() < other.getTop()
                 &&
-                this.getTop() > other.getBottom();
-    }    
+                this.getTop() > other.getBottom()
+
+                    ||
+
+                this.getLeft() < other.getRight()
+                &&
+                this.getRight() > other.getLeft()
+                &&
+                this.y < other.getTop()
+                &&
+                this.y > other.getBottom();
+    }
 
     @Override
     public boolean isInCollision() {
@@ -87,7 +97,7 @@ public class Ball implements Collidable {
 
     @Override
     public void markAsColliding() {
-        this.inCollision = true;        
+        this.inCollision = true;
     }
 
     @Override
