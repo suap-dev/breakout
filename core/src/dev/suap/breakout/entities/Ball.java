@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import dev.suap.breakout.interfaces.BoundingBox;
 
-public class Ball {
+public class Ball implements BoundingBox {
     int x;
     int y;
     int radius;
@@ -61,19 +61,19 @@ public class Ball {
                 box.getBottom() <= this.getTop();
     }
 
-    int getLeft() {
+    public int getLeft() {
         return x - radius;
     }
 
-    int getRight() {
+    public int getRight() {
         return x + radius;
     }
 
-    int getTop() {
+    public int getTop() {
         return y + radius;
     }
 
-    int getBottom() {
+    public int getBottom() {
         return y - radius;
     }
 }
