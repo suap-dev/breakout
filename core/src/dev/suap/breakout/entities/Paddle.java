@@ -6,13 +6,13 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import dev.suap.breakout.interfaces.Collidable;
 
 public class Paddle implements Collidable {
-    int x;
-    int y;
-    int width;
-    int height;
+    float x;
+    float y;
+    float width;
+    float height;
     boolean inCollision = false;
 
-    public Paddle(int originX, int originY, int width, int height) {
+    public Paddle(float originX, float originY, float width, float height) {
         this.x = originX - width / 2;
         this.y = originY - height / 2;
         this.height = height;
@@ -28,27 +28,27 @@ public class Paddle implements Collidable {
         renderer.rect(x, y, width, height);
     }
 
-    void setOriginX(int x) {
+    void setOriginX(float x) {
         this.x = x - width / 2;
     }
 
-    void setOriginY(int y) {
+    void setOriginY(float y) {
         this.y = Gdx.graphics.getHeight() - y - height / 2;
     }
 
-    public int getLeft() {
+    public float getLeft() {
         return x;
     }
 
-    public int getRight() {
+    public float getRight() {
         return x + width;
     }
 
-    public int getTop() {
+    public float getTop() {
         return y + height;
     }
 
-    public int getBottom() {
+    public float getBottom() {
         return y;
     }
 

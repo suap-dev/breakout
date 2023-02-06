@@ -9,13 +9,13 @@ import dev.suap.breakout.interfaces.Collidable;
 import com.badlogic.gdx.math.Vector2;
 
 public class Block implements Collidable {
-    int x;
-    int y;
-    int width;
-    int height;
+    float x;
+    float y;
+    float width;
+    float height;
     boolean inCollision = false;
 
-    public Block(int x, int y, int width, int height) {
+    public Block(float x, float y, float width, float height) {
         this.x = x;
         this.y = y;
         this.height = height;
@@ -28,27 +28,27 @@ public class Block implements Collidable {
 
     public static Array<Block> blockBatch(
             Vector2 bottomLeft, Vector2 topRight,
-            int columns, int rows,
-            int horizontalSpacing, int verticalSpacing) {
+            float columns, float rows,
+            float horizontalSpacing, float verticalSpacing) {
 
         Array<Block> blocks = new Array<>();
 
-        int left = (int) bottomLeft.x;
-        int right = (int) topRight.x;
-        int bottom = (int) bottomLeft.y;
-        int top = (int) topRight.y;
+        float left = bottomLeft.x;
+        float right = topRight.x;
+        float bottom = bottomLeft.y;
+        float top = topRight.y;
 
-        int width = right - left;
-        int height = top - bottom;
+        float width = right - left;
+        float height = top - bottom;
 
-        int blockWidth = (width - horizontalSpacing * (columns - 1)) / columns;
-        int blockHeight = (height - verticalSpacing * (rows - 1)) / rows;
+        float blockWidth = (width - horizontalSpacing * (columns - 1)) / columns;
+        float blockHeight = (height - verticalSpacing * (rows - 1)) / rows;
 
-        int deltaX = (width - blockWidth) / (columns - 1);
-        int deltaY = (height - blockHeight) / (rows - 1);
+        float deltaX = (width - blockWidth) / (columns - 1);
+        float deltaY = (height - blockHeight) / (rows - 1);
 
-        for (int blockY = bottom; blockY + blockHeight <= top; blockY += deltaY) {
-            for (int blockX = left; blockX + blockWidth <= right; blockX += deltaX) {
+        for (float blockY = bottom; blockY + blockHeight <= top; blockY += deltaY) {
+            for (float blockX = left; blockX + blockWidth <= right; blockX += deltaX) {
                 blocks.add(new Block(blockX, blockY, blockWidth, blockHeight));
             }
         }
@@ -56,27 +56,27 @@ public class Block implements Collidable {
         return blocks;
     }
 
-    void setOriginX(int x) {
+    void setOriginX(float x) {
         this.x = x - width / 2;
     }
 
-    void setOriginY(int y) {
+    void setOriginY(float y) {
         this.y = Gdx.graphics.getHeight() - y - height / 2;
     }
 
-    public int getLeft() {
+    public float getLeft() {
         return x;
     }
 
-    public int getRight() {
+    public float getRight() {
         return x + width;
     }
 
-    public int getTop() {
+    public float getTop() {
         return y + height;
     }
 
-    public int getBottom() {
+    public float getBottom() {
         return y;
     }
 

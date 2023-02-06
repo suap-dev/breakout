@@ -7,17 +7,17 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import dev.suap.breakout.interfaces.Collidable;
 
 public class Ball implements Collidable {
-    int x;
-    int y;
-    int radius;
-    int xSpeed;
-    int ySpeed;
+    float x;
+    float y;
+    float radius;
+    float xSpeed;
+    float ySpeed;
     Color color = Color.WHITE;
     private boolean inCollision = false;
     // private boolean isCollisionVertical = false; // not really needed
     private boolean isCollisionHorizontal = false;
 
-    public Ball(int x, int y, int radius, int xSpeed, int ySpeed) {
+    public Ball(float x, float y, float radius, float xSpeed, float ySpeed) {
         this.x = x;
         this.y = y;
         this.radius = radius;
@@ -90,19 +90,19 @@ public class Ball implements Collidable {
         return inCollision;
     }
 
-    public int getLeft() {
+    public float getLeft() {
         return x - radius;
     }
 
-    public int getRight() {
+    public float getRight() {
         return x + radius;
     }
 
-    public int getTop() {
+    public float getTop() {
         return y + radius;
     }
 
-    public int getBottom() {
+    public float getBottom() {
         return y - radius;
     }
 
