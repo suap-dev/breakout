@@ -25,7 +25,7 @@ public class Paddle implements Collidable {
 
     public void update() {
         this.setOriginX(Gdx.input.getX());
-        this.setOriginY(Gdx.input.getY()); // usefull for testing
+        // this.setOriginY(Gdx.input.getY()); // usefull for testing
     }
 
     public void draw(ShapeRenderer renderer) {
