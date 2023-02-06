@@ -27,8 +27,8 @@ public class BreakoutGame extends ApplicationAdapter {
 	public void create() {
 		renderer = new ShapeRenderer();
 
-		int width = Gdx.graphics.getWidth();
-		int height = Gdx.graphics.getHeight();
+		float width = Gdx.graphics.getWidth();
+		float height = Gdx.graphics.getHeight();
 
 		ball = new Ball(
 				width / 2, height / 4,
@@ -40,14 +40,14 @@ public class BreakoutGame extends ApplicationAdapter {
 				120, 20);
 
 		blocks = Block.blockBatch(
-				new Vector2((float) 0 + 8, ((float) height / 2)),
-				new Vector2((float) width - 7, (float) height - 5),
+				new Vector2((float) 0 + 8, height / 2),
+				new Vector2(width - 7, height - 5),
 				6, 6,
 				15, 15);
 	}
 
 	@Override
-	public void render() {		
+	public void render() {
 		// paddle update handles the mouse movement as well
 		paddle.update();
 		// ball moves on its own
@@ -72,7 +72,7 @@ public class BreakoutGame extends ApplicationAdapter {
 
 		// draw the ball and the paddle
 		paddle.draw(renderer);
-		ball.draw(renderer);		
+		ball.draw(renderer);
 
 		// clear the screen
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

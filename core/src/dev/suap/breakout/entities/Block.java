@@ -38,19 +38,19 @@ public class Block implements Collidable {
 
         Array<Block> blocks = new Array<>();
 
-        float left = bottomLeft.x;
-        float right = topRight.x;
-        float bottom = bottomLeft.y;
-        float top = topRight.y;
+        final float left = bottomLeft.x;
+        final float right = topRight.x;
+        final float bottom = bottomLeft.y;
+        final float top = topRight.y;
 
-        float width = right - left;
-        float height = top - bottom;
+        final float width = right - left;
+        final float height = top - bottom;
 
-        float blockWidth = (width - horizontalSpacing * (columns - 1)) / columns;
-        float blockHeight = (height - verticalSpacing * (rows - 1)) / rows;
+        final float blockWidth = (width - horizontalSpacing * (columns - 1)) / columns;
+        final float blockHeight = (height - verticalSpacing * (rows - 1)) / rows;
 
-        float deltaX = (width - blockWidth) / (columns - 1);
-        float deltaY = (height - blockHeight) / (rows - 1);
+        final float deltaX = (width - blockWidth) / (columns - 1);
+        final float deltaY = (height - blockHeight) / (rows - 1);
 
         for (float blockY = bottom; blockY + blockHeight <= top; blockY += deltaY) {
             for (float blockX = left; blockX + blockWidth <= right; blockX += deltaX) {
