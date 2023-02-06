@@ -3,43 +3,47 @@ package dev.suap.breakout.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
 
 import dev.suap.breakout.interfaces.Collidable;
 
 public class Ball implements Collidable {
-    float x;
-    float y;
+    Vector2 origin;
     float radius;
-    float xSpeed;
-    float ySpeed;
     Color color = Color.WHITE;
+
+    Vector2 velocity;
+
     private boolean inCollision = false;
-    // private boolean isCollisionVertical = false; // not really needed
     private boolean isCollisionHorizontal = false;
+    // private boolean isCollisionVertical = false; // not really needed
 
     public Ball(float x, float y, float radius, float xSpeed, float ySpeed) {
-        this.x = x;
-        this.y = y;
+        this.origin = new Vector2(x, y);
         this.radius = radius;
-        this.xSpeed = xSpeed;
-        this.ySpeed = ySpeed;
+        this.velocity = new Vector2(xSpeed, ySpeed);
+    }
+
+    public Ball(Vector2 origin, float radius, Vector2 velocity) {
+        this.origin = origin;
+        this.radius = radius;
+        this.velocity = velocity;
     }
 
     public void update() {
-        x += xSpeed;
-        y += ySpeed;
+        origin.add(velocity);
 
-        if (x - radius < 0 || x + radius > Gdx.graphics.getWidth()) {
-            xSpeed = -xSpeed;
+        if (origin.x - radius < 0 || origin.x + radius > Gdx.graphics.getWidth()) {
+            velocity.x = -velocity.x;
         }
-        if (y - radius < 0 || y + radius > Gdx.graphics.getHeight()) {
-            ySpeed = -ySpeed;
+        if (origin.y - radius < 0 || origin.y + radius > Gdx.graphics.getHeight()) {
+            velocity.y = -velocity.y;
         }
     }
 
     public void draw(ShapeRenderer renderer) {
         renderer.setColor(color);
-        renderer.circle(x, y, radius);
+        renderer.circle(origin.x, origin.y, radius);
     }
 
     public void handleCollision(Collidable other) {
@@ -50,9 +54,9 @@ public class Ball implements Collidable {
             other.markAsColliding();
 
             if (isCollisionHorizontal)
-                this.ySpeed = -this.ySpeed;
+                velocity.y = -velocity.y;
             else
-                this.xSpeed = -this.xSpeed;
+                velocity.x = -velocity.x;
 
         } else if (this.inCollision && other.isInCollision() && !isCollidingWithOther) {
             this.inCollision = false;
@@ -61,9 +65,9 @@ public class Ball implements Collidable {
     }
 
     private boolean isCollidingHorisontally(Collidable other) {
-        isCollisionHorizontal = this.x < other.getRight()
+        isCollisionHorizontal = origin.x < other.getRight()
                 &&
-                this.x > other.getLeft()
+                origin.x > other.getLeft()
                 &&
                 this.getBottom() < other.getTop()
                 &&
@@ -76,9 +80,9 @@ public class Ball implements Collidable {
                 &&
                 this.getRight() > other.getLeft()
                 &&
-                this.y < other.getTop()
+                origin.y < other.getTop()
                 &&
-                this.y > other.getBottom();
+                origin.y > other.getBottom();
     }
 
     public boolean isColliding(Collidable other) {
@@ -90,20 +94,24 @@ public class Ball implements Collidable {
         return inCollision;
     }
 
+    @Override
     public float getLeft() {
-        return x - radius;
+        return origin.x - radius;
     }
 
+    @Override
     public float getRight() {
-        return x + radius;
+        return origin.x + radius;
     }
 
+    @Override
     public float getTop() {
-        return y + radius;
+        return origin.y + radius;
     }
 
+    @Override
     public float getBottom() {
-        return y - radius;
+        return origin.y - radius;
     }
 
     @Override

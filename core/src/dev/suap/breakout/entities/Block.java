@@ -9,21 +9,26 @@ import dev.suap.breakout.interfaces.Collidable;
 import com.badlogic.gdx.math.Vector2;
 
 public class Block implements Collidable {
-    float x;
-    float y;
+    Vector2 bottomLeftCorner;
     float width;
     float height;
+
     boolean inCollision = false;
 
     public Block(float x, float y, float width, float height) {
-        this.x = x;
-        this.y = y;
+        bottomLeftCorner = new Vector2(x, y);
+        this.height = height;
+        this.width = width;
+    }
+
+    public Block(Vector2 bottomLeftCorner, float width, float height) {
+        this.bottomLeftCorner = bottomLeftCorner;
         this.height = height;
         this.width = width;
     }
 
     public void draw(ShapeRenderer renderer) {
-        renderer.rect(x, y, width, height);
+        renderer.rect(bottomLeftCorner.x, bottomLeftCorner.y, width, height);
     }
 
     public static Array<Block> blockBatch(
@@ -57,27 +62,31 @@ public class Block implements Collidable {
     }
 
     void setOriginX(float x) {
-        this.x = x - width / 2;
+        bottomLeftCorner.x = x - width / 2;
     }
 
     void setOriginY(float y) {
-        this.y = Gdx.graphics.getHeight() - y - height / 2;
+        bottomLeftCorner.y = Gdx.graphics.getHeight() - y - height / 2;
     }
 
+    @Override
     public float getLeft() {
-        return x;
+        return bottomLeftCorner.x;
     }
 
+    @Override
     public float getRight() {
-        return x + width;
+        return bottomLeftCorner.x + width;
     }
 
+    @Override
     public float getTop() {
-        return y + height;
+        return bottomLeftCorner.y + height;
     }
 
+    @Override
     public float getBottom() {
-        return y;
+        return bottomLeftCorner.y;
     }
 
     @Override
@@ -87,7 +96,7 @@ public class Block implements Collidable {
 
     @Override
     public void markAsColliding() {
-        this.inCollision = true;        
+        this.inCollision = true;
     }
 
     @Override

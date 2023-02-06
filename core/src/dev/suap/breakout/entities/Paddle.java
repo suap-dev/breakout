@@ -2,19 +2,23 @@ package dev.suap.breakout.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
 
 import dev.suap.breakout.interfaces.Collidable;
 
 public class Paddle implements Collidable {
-    float x;
-    float y;
+    Vector2 bottomLeftCorner;
     float width;
     float height;
+
     boolean inCollision = false;
 
     public Paddle(float originX, float originY, float width, float height) {
-        this.x = originX - width / 2;
-        this.y = originY - height / 2;
+        this(new Vector2(originX - width / 2, originY - height / 2), width, height);
+    }
+
+    public Paddle(Vector2 bottomLeftCorner, float width, float height) {
+        this.bottomLeftCorner = bottomLeftCorner;
         this.height = height;
         this.width = width;
     }
@@ -25,31 +29,35 @@ public class Paddle implements Collidable {
     }
 
     public void draw(ShapeRenderer renderer) {
-        renderer.rect(x, y, width, height);
+        renderer.rect(bottomLeftCorner.x, bottomLeftCorner.y, width, height);
     }
 
     void setOriginX(float x) {
-        this.x = x - width / 2;
+        bottomLeftCorner.x = x - width / 2;
     }
 
     void setOriginY(float y) {
-        this.y = Gdx.graphics.getHeight() - y - height / 2;
+        bottomLeftCorner.y = Gdx.graphics.getHeight() - y - height / 2;
     }
 
+    @Override
     public float getLeft() {
-        return x;
+        return bottomLeftCorner.x;
     }
 
+    @Override
     public float getRight() {
-        return x + width;
+        return bottomLeftCorner.x + width;
     }
 
+    @Override
     public float getTop() {
-        return y + height;
+        return bottomLeftCorner.y + height;
     }
 
+    @Override
     public float getBottom() {
-        return y;
+        return bottomLeftCorner.y;
     }
 
     @Override
@@ -60,7 +68,7 @@ public class Paddle implements Collidable {
     @Override
     public void markAsColliding() {
         this.inCollision = true;
-        
+
     }
 
     @Override
