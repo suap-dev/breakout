@@ -7,10 +7,11 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
+import dev.suap.breakout.interfaces.Collidable;
 import dev.suap.breakout.interfaces.Entity;
 import dev.suap.breakout.interfaces.Rotatable;
 
-public class RectangularEntity extends Rectangle implements Entity, Rotatable {
+public class RectangularEntity extends Rectangle implements Entity, Rotatable, Collidable {
 	private Vector2 translationMatrix;
 	private float angularVelocity;
 	private float rotation;
@@ -22,6 +23,8 @@ public class RectangularEntity extends Rectangle implements Entity, Rotatable {
 	private float interpolationTime;
 	private float progress = 1.1f; // if progress > 1 then interpolation is over
 	private Interpolation method;
+
+	private boolean inCollision = false;
 
 	private Color color = Color.WHITE;
 
@@ -179,4 +182,41 @@ public class RectangularEntity extends Rectangle implements Entity, Rotatable {
 
 		return this;
 	}
+
+	
+
+    @Override
+    public float getLeft() {
+        return getX();
+    }
+
+    @Override
+    public float getRight() {
+        return getX() + getWidth();
+    }
+
+    @Override
+    public float getBottom() {
+        return getY();
+    }
+
+    @Override
+    public float getTop() {
+        return getY() + getHeight();
+    }
+
+    @Override
+    public boolean isInCollision() {
+        return this.inCollision;
+    }
+
+    @Override
+    public void markAsColliding() {
+        this.inCollision = true;
+    }
+
+    @Override
+    public void resolveCollision() {
+        this.inCollision = false;
+    }
 }

@@ -14,7 +14,6 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 
 public class Block extends RectangularEntity implements Collidable {
-    boolean inCollision = false;
 
     public Block(float x, float y, float width, float height, float rotation) {
         super(x, y, width, height, rotation);
@@ -58,40 +57,5 @@ public class Block extends RectangularEntity implements Collidable {
         }
 
         return blocks;
-    }
-
-    @Override
-    public float getLeft() {
-        return getX();
-    }
-
-    @Override
-    public float getRight() {
-        return getX() + getWidth();
-    }
-
-    @Override
-    public float getBottom() {
-        return getY();
-    }
-
-    @Override
-    public float getTop() {
-        return getY() + getHeight();
-    }
-
-    @Override
-    public boolean isInCollision() {
-        return this.inCollision;
-    }
-
-    @Override
-    public void markAsColliding() {
-        this.inCollision = true;
-    }
-
-    @Override
-    public void resolveCollision() {
-        this.inCollision = false;
     }
 }
