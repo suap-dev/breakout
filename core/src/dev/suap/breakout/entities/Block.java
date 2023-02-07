@@ -1,7 +1,10 @@
 package dev.suap.breakout.entities;
 
+
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.Array;
+
 
 import dev.suap.breakout.classes.MyRectangle;
 import dev.suap.breakout.interfaces.Collidable;
@@ -42,9 +45,11 @@ public class Block extends MyRectangle implements Collidable {
         final float deltaY = (height - blockHeight) / (rows - 1);
 
         Block b;
+        Color c = Color.PINK;
         for (float blockY = bottom; blockY + blockHeight <= top; blockY += deltaY) {
             for (float blockX = left; blockX + blockWidth <= right; blockX += deltaX) {
                 b = new Block(blockX, blockY, blockWidth, blockHeight, -40);
+                b.setColor(c.lerp(Color.ORANGE, 0.025f).cpy());
                 b.addInterpolatedRotation(0, 0.9f, Interpolation.bounceOut);
                 blocks.add(b);
             }
