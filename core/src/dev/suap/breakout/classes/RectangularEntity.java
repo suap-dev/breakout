@@ -10,7 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 import dev.suap.breakout.interfaces.Entity;
 import dev.suap.breakout.interfaces.Rotatable;
 
-public class MyRectangle extends Rectangle implements Entity, Rotatable {
+public class RectangularEntity extends Rectangle implements Entity, Rotatable {
 	private Vector2 translationMatrix;
 	private float angularVelocity;
 	private float rotation;
@@ -25,13 +25,13 @@ public class MyRectangle extends Rectangle implements Entity, Rotatable {
 
 	private Color color = Color.WHITE;
 
-	public MyRectangle(Vector2 origin, float width, float height, float rotation) {
+	public RectangularEntity(Vector2 origin, float width, float height, float rotation) {
 		super(-width / 2, -height / 2, width, height);
 		this.translationMatrix = origin;
 		this.rotation = rotation;
 	}
 
-	public MyRectangle(Vector2 origin, float width, float height) {
+	public RectangularEntity(Vector2 origin, float width, float height) {
 		this(origin, width, height, 0);
 	}
 
@@ -45,7 +45,7 @@ public class MyRectangle extends Rectangle implements Entity, Rotatable {
 	 * @param rotation The rotation of the rectangle. CAUTION: This rotation is just
 	 *                 visual, doesn't work with collision detection!
 	 */
-	public MyRectangle(float x, float y, float width, float height, float rotation) {
+	public RectangularEntity(float x, float y, float width, float height, float rotation) {
 		super(-width / 2, -height / 2, width, height);
 		this.translationMatrix = new Vector2(x + width / 2, y + height / 2);
 		this.rotation = rotation;
@@ -60,7 +60,7 @@ public class MyRectangle extends Rectangle implements Entity, Rotatable {
 	 * @param width  The width of the rectangle.
 	 * @param height The height of the rectangle.
 	 */
-	public MyRectangle(float x, float y, float width, float height) {
+	public RectangularEntity(float x, float y, float width, float height) {
 		this(x, y, width, height, 0);
 	}
 

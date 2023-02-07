@@ -1,18 +1,19 @@
 package dev.suap.breakout.entities;
 
 
+import java.util.Random;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.Array;
 
-
-import dev.suap.breakout.classes.MyRectangle;
+import dev.suap.breakout.classes.RectangularEntity;
 import dev.suap.breakout.interfaces.Collidable;
 
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 
-public class Block extends MyRectangle implements Collidable {
+public class Block extends RectangularEntity implements Collidable {
     boolean inCollision = false;
 
     public Block(float x, float y, float width, float height, float rotation) {
@@ -46,11 +47,12 @@ public class Block extends MyRectangle implements Collidable {
 
         Block b;
         Color c = Color.PINK;
+        Random r = new Random();
         for (float blockY = bottom; blockY + blockHeight <= top; blockY += deltaY) {
             for (float blockX = left; blockX + blockWidth <= right; blockX += deltaX) {
-                b = new Block(blockX, blockY, blockWidth, blockHeight, -40);
+                b = new Block(blockX, blockY, blockWidth, blockHeight, r.nextInt(720)-360);
                 b.setColor(c.lerp(Color.ORANGE, 0.025f).cpy());
-                b.addInterpolatedRotation(0, 0.9f, Interpolation.bounceOut);
+                b.addInterpolatedRotation(0, r.nextFloat()*2, Interpolation.swingOut);
                 blocks.add(b);
             }
         }
