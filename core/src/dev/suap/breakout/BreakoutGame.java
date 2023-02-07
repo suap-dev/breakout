@@ -33,7 +33,7 @@ public class BreakoutGame extends ApplicationAdapter {
 		ball = new Ball(
 				width / 2, height / 4,
 				15,
-				4, 4);
+				-300);
 
 		paddle = new Paddle(
 				width / 2, 20,
@@ -48,11 +48,15 @@ public class BreakoutGame extends ApplicationAdapter {
 
 	@Override
 	public void render() {
+		float deltaTime = Gdx.graphics.getDeltaTime();
 		// paddle update handles the mouse movement as well
-		paddle.update();
+		paddle.update(deltaTime);
 		// ball moves on its own
-		ball.update();
+		ball.update(deltaTime);
 
+
+		// clear the screen
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		// begin creating the frame
 		renderer.begin(ShapeType.Filled);
 
@@ -64,6 +68,7 @@ public class BreakoutGame extends ApplicationAdapter {
 				iter.remove();
 				ball.resolveCollision();
 			} else {
+				b.update(deltaTime);
 				b.draw(renderer);
 			}
 		}
@@ -73,9 +78,6 @@ public class BreakoutGame extends ApplicationAdapter {
 		// draw the ball and the paddle
 		paddle.draw(renderer);
 		ball.draw(renderer);
-
-		// clear the screen
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		// and put the frame in it
 		renderer.end();
 	}

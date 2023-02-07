@@ -1,34 +1,23 @@
 package dev.suap.breakout.entities;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
 
+import dev.suap.breakout.classes.MyRectangle;
 import dev.suap.breakout.interfaces.Collidable;
 
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 
-public class Block implements Collidable {
-    Vector2 bottomLeftCorner;
-    float width;
-    float height;
-
+public class Block extends MyRectangle implements Collidable {
     boolean inCollision = false;
 
+    public Block(float x, float y, float width, float height, float rotation) {
+        super(x, y, width, height, rotation);
+    }
+
     public Block(float x, float y, float width, float height) {
-        bottomLeftCorner = new Vector2(x, y);
-        this.height = height;
-        this.width = width;
-    }
-
-    public Block(Vector2 bottomLeftCorner, float width, float height) {
-        this.bottomLeftCorner = bottomLeftCorner;
-        this.height = height;
-        this.width = width;
-    }
-
-    public void draw(ShapeRenderer renderer) {
-        renderer.rect(bottomLeftCorner.x, bottomLeftCorner.y, width, height);
+        super(x, y, width, height);
     }
 
     public static Array<Block> blockBatch(
@@ -52,41 +41,36 @@ public class Block implements Collidable {
         final float deltaX = (width - blockWidth) / (columns - 1);
         final float deltaY = (height - blockHeight) / (rows - 1);
 
+        Block b;
         for (float blockY = bottom; blockY + blockHeight <= top; blockY += deltaY) {
             for (float blockX = left; blockX + blockWidth <= right; blockX += deltaX) {
-                blocks.add(new Block(blockX, blockY, blockWidth, blockHeight));
+                b = new Block(blockX, blockY, blockWidth, blockHeight, -40);
+                b.addInterpolatedRotation(0, 0.9f, Interpolation.bounceOut);
+                blocks.add(b);
             }
         }
 
         return blocks;
     }
 
-    void setOriginX(float x) {
-        bottomLeftCorner.x = x - width / 2;
-    }
-
-    void setOriginY(float y) {
-        bottomLeftCorner.y = Gdx.graphics.getHeight() - y - height / 2;
-    }
-
     @Override
     public float getLeft() {
-        return bottomLeftCorner.x;
+        return getX();
     }
 
     @Override
     public float getRight() {
-        return bottomLeftCorner.x + width;
-    }
-
-    @Override
-    public float getTop() {
-        return bottomLeftCorner.y + height;
+        return getX() + getWidth();
     }
 
     @Override
     public float getBottom() {
-        return bottomLeftCorner.y;
+        return getY();
+    }
+
+    @Override
+    public float getTop() {
+        return getY() + getHeight();
     }
 
     @Override

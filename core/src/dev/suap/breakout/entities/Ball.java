@@ -6,8 +6,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 
 import dev.suap.breakout.interfaces.Collidable;
+import dev.suap.breakout.interfaces.Entity;
 
-public class Ball implements Collidable {
+public class Ball implements Entity, Collidable {
     Vector2 origin;
     float radius;
     Color color = Color.WHITE;
@@ -18,10 +19,24 @@ public class Ball implements Collidable {
     private boolean isCollisionHorizontal = false;
     // private boolean isCollisionVertical = false; // not really needed
 
-    public Ball(float x, float y, float radius, float xSpeed, float ySpeed) {
+    /**
+     * @param x        Origin x component.
+     * @param y        Origin y component.
+     * @param radius   Radius of the ball.
+     * @param velocity Magnitude of the velocity, angle set to 45.
+     */
+    public Ball(float x, float y, float radius, float velocity) {
+        this(new Vector2(x, y),
+                radius,
+                new Vector2(
+                        (float) (velocity / Math.sqrt(2.0f)),
+                        (float) (velocity / Math.sqrt(2.0f))));
+    }
+
+    public Ball(float x, float y, float radius, float velocityX, float velocityY) {
         this.origin = new Vector2(x, y);
         this.radius = radius;
-        this.velocity = new Vector2(xSpeed, ySpeed);
+        this.velocity = new Vector2(velocityX, velocityY);
     }
 
     public Ball(Vector2 origin, float radius, Vector2 velocity) {
@@ -30,8 +45,9 @@ public class Ball implements Collidable {
         this.velocity = velocity;
     }
 
-    public void update() {
-        origin.add(velocity);
+    @Override
+    public void update(float deltaTime) {
+        origin.add(velocity.x * deltaTime, velocity.y * deltaTime);
 
         if (origin.x - radius < 0 || origin.x + radius > Gdx.graphics.getWidth()) {
             velocity.x = -velocity.x;
@@ -41,6 +57,7 @@ public class Ball implements Collidable {
         }
     }
 
+    @Override
     public void draw(ShapeRenderer renderer) {
         renderer.setColor(color);
         renderer.circle(origin.x, origin.y, radius);
@@ -122,5 +139,17 @@ public class Ball implements Collidable {
     @Override
     public void resolveCollision() {
         this.inCollision = false;
+    }
+
+    @Override
+    public void setColor(Color color) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public Color getColor() {
+        // TODO Auto-generated method stub
+        return null;
     }
 }
