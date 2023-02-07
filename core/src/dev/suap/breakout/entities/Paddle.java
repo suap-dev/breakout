@@ -33,6 +33,7 @@ public class Paddle implements Entity, Collidable{
 
     @Override
     public void draw(ShapeRenderer renderer) {
+        renderer.setColor(Color.FOREST);
         renderer.rect(bottomLeftCorner.x, bottomLeftCorner.y, width, height);
     }
 
