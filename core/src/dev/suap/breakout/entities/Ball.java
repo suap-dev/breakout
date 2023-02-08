@@ -1,21 +1,12 @@
 package dev.suap.breakout.entities;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 
+import dev.suap.breakout.classes.CircularEntity;
 import dev.suap.breakout.interfaces.Collidable;
-import dev.suap.breakout.interfaces.Entity;
 
-public class Ball implements Entity, Collidable {
-    Vector2 origin;
-    float radius;
-    Color color = Color.WHITE;
-
-    Vector2 velocity;
-
-    private boolean inCollision = false;
+public class Ball extends CircularEntity {
     private boolean isCollisionHorizontal = false;
     // private boolean isCollisionVertical = false; // not really needed
 
@@ -34,20 +25,19 @@ public class Ball implements Entity, Collidable {
     }
 
     public Ball(float x, float y, float radius, float velocityX, float velocityY) {
-        this.origin = new Vector2(x, y);
-        this.radius = radius;
-        this.velocity = new Vector2(velocityX, velocityY);
+        super(
+                new Vector2(x, y),
+                radius,
+                new Vector2(velocityX, velocityY));
     }
 
     public Ball(Vector2 origin, float radius, Vector2 velocity) {
-        this.origin = origin;
-        this.radius = radius;
-        this.velocity = velocity;
+        super(origin, radius, velocity);
     }
 
     @Override
     public void update(float deltaTime) {
-        origin.add(velocity.x * deltaTime, velocity.y * deltaTime);
+        super.update(deltaTime);
 
         if (origin.x - radius < 0 || origin.x + radius > Gdx.graphics.getWidth()) {
             velocity.x = -velocity.x;
@@ -55,12 +45,6 @@ public class Ball implements Entity, Collidable {
         if (origin.y - radius < 0 || origin.y + radius > Gdx.graphics.getHeight()) {
             velocity.y = -velocity.y;
         }
-    }
-
-    @Override
-    public void draw(ShapeRenderer renderer) {
-        renderer.setColor(color);
-        renderer.circle(origin.x, origin.y, radius);
     }
 
     public void handleCollision(Collidable other) {
@@ -104,52 +88,5 @@ public class Ball implements Entity, Collidable {
 
     public boolean isColliding(Collidable other) {
         return isCollidingHorisontally(other) || isCollidingVertically(other);
-    }
-
-    @Override
-    public boolean isInCollision() {
-        return inCollision;
-    }
-
-    @Override
-    public float getLeft() {
-        return origin.x - radius;
-    }
-
-    @Override
-    public float getRight() {
-        return origin.x + radius;
-    }
-
-    @Override
-    public float getTop() {
-        return origin.y + radius;
-    }
-
-    @Override
-    public float getBottom() {
-        return origin.y - radius;
-    }
-
-    @Override
-    public void markAsColliding() {
-        this.inCollision = true;
-    }
-
-    @Override
-    public void resolveCollision() {
-        this.inCollision = false;
-    }
-
-    @Override
-    public void setColor(Color color) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public Color getColor() {
-        // TODO Auto-generated method stub
-        return null;
     }
 }
