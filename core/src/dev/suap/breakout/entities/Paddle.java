@@ -6,6 +6,8 @@ import com.badlogic.gdx.math.Vector2;
 import dev.suap.breakout.classes.RectangularEntity;
 
 public class Paddle extends RectangularEntity {
+    private Ball ball;
+
     public Paddle(Vector2 origin, float width, float height, float rotation) {
         super(origin, width, height, rotation);
     }
@@ -20,6 +22,16 @@ public class Paddle extends RectangularEntity {
 
     public Paddle(float x, float y, float width, float height) {
         super(x, y, width, height);
+    }
+
+    public Ball spawnBall(float radius, float velocity) {
+        ball = new Ball(
+                this.getOriginX(),
+                this.getOriginY() + this.getHeight() / 2 + radius,
+                radius,
+                velocity);
+
+        return ball;
     }
 
     @Override
