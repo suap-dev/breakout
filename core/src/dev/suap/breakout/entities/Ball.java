@@ -11,6 +11,8 @@ public class Ball extends CircularEntity {
     private final float screenWidth;
     private final float screenHeight;
 
+    private boolean died = false;
+
     /**
      * @param x        Origin x component.
      * @param y        Origin y component.
@@ -53,13 +55,17 @@ public class Ball extends CircularEntity {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
+
         origin.add(velocity.x * deltaTime, velocity.y * deltaTime);
+
         if (origin.x - radius < 0 || origin.x + radius > screenWidth) {
             velocity.x = -velocity.x;
         }
-        if (origin.y - radius < 0 || origin.y + radius > screenHeight) {
+        if (origin.y + radius > screenHeight) {
             velocity.y = -velocity.y;
         }
+        if (origin.y + radius < 0)
+            die();
     }
 
     public void handleCollision(Collidable other) {
@@ -103,5 +109,17 @@ public class Ball extends CircularEntity {
 
     public boolean isColliding(Collidable other) {
         return isCollidingHorisontally(other) || isCollidingVertically(other);
+    }
+
+    public boolean isDead() {
+        return died;
+    }
+
+    public void die() {
+        died = true;
+    }
+
+    public void revive() {
+        died = false;
     }
 }
