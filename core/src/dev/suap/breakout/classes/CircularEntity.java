@@ -11,6 +11,7 @@ import dev.suap.breakout.interfaces.Rotatable;
 public class CircularEntity implements Entity, Collidable, Rotatable {
     protected Vector2 origin;
     protected float radius;
+
     private Color color = Color.WHITE;
 
     protected boolean inCollision = false;
@@ -126,5 +127,9 @@ public class CircularEntity implements Entity, Collidable, Rotatable {
     @Override
     public void setRotation(float rotation) {
         // irrelevant, it's a circle shape
+    }
+    
+    public float getRadius() {
+        return radius;
     }
 }
