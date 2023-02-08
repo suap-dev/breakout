@@ -32,17 +32,29 @@ public class Paddle extends RectangularEntity {
         screenWidth = Gdx.graphics.getWidth();
     }
 
-    public Ball spawnBall(float radius, float velocity) {
-        float v = (float) (Math.abs(velocity) / Math.sqrt(2));
+    public Ball spawnBall(float radius, Vector2 velocity) {
         ball = new Ball(
-                this.getOriginX(),
-                this.getOriginY() + this.getHeight() / 2 + radius,
+                getOriginX(),
+                getOriginY() + getHeight() / 2 + radius,
                 radius,
                 0);
-        ballLaunchVelocity = new Vector2(v, v);
+        ballLaunchVelocity = velocity;
         hasBall = true;
 
         return ball;
+    }
+
+    public Ball spawnBall(float radius, float velocity) {
+        float v = (float) (Math.abs(velocity) / Math.sqrt(2));
+        return spawnBall(radius, new Vector2(v, v));
+    }
+
+    private void reviveBall() {
+        ball.setOriginX(getOriginX());
+        ball.setOriginY(getOriginY() + getHeight() / 2 + ball.getRadius());
+        ball.setVelocity(Vector2.Zero);
+        ball.revive();
+        hasBall = true;
     }
 
     @Override
@@ -59,9 +71,11 @@ public class Paddle extends RectangularEntity {
         if (hasBall) {
             this.ball.setOriginX(this.getOriginX());
             if (Gdx.input.isButtonPressed(Buttons.LEFT)) {
-                ball.setVelocity(ballLaunchVelocity);
+                ball.setVelocity(ballLaunchVelocity.cpy());
                 hasBall = false;
             }
+        } else if (ball.isDead()) {
+            reviveBall();
         }
         // this.setOriginY(Gdx.input.getY()); // usefull for testing
     }
