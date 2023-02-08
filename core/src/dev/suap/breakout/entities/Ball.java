@@ -7,8 +7,7 @@ import dev.suap.breakout.classes.CircularEntity;
 import dev.suap.breakout.interfaces.Collidable;
 
 public class Ball extends CircularEntity {
-    private boolean isCollisionHorizontal = false;
-    // private boolean isCollisionVertical = false; // not really needed
+    private Vector2 velocity;
 
     /**
      * @param x        Origin x component.
@@ -25,20 +24,30 @@ public class Ball extends CircularEntity {
     }
 
     public Ball(float x, float y, float radius, float velocityX, float velocityY) {
-        super(
-                new Vector2(x, y),
-                radius,
-                new Vector2(velocityX, velocityY));
+        super(new Vector2(x, y), radius);
+        this.velocity = new Vector2(velocityX, velocityY);
     }
 
     public Ball(Vector2 origin, float radius, Vector2 velocity) {
-        super(origin, radius, velocity);
+        super(origin, radius);
+        this.velocity = velocity;
     }
+
+    public Vector2 getVelocity() {
+        return velocity;
+    }
+
+    public void setVelocity(Vector2 velocity) {
+        this.velocity = velocity;
+    }
+
+    private boolean isCollisionHorizontal = false;
+    // private boolean isCollisionVertical = false; // not really needed
 
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
-
+        origin.add(velocity.x * deltaTime, velocity.y * deltaTime);
         if (origin.x - radius < 0 || origin.x + radius > Gdx.graphics.getWidth()) {
             velocity.x = -velocity.x;
         }

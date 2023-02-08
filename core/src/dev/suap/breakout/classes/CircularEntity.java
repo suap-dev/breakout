@@ -15,12 +15,9 @@ public class CircularEntity implements Entity, Collidable, Rotatable {
 
     protected boolean inCollision = false;
 
-    protected Vector2 velocity;
-
-    public CircularEntity(Vector2 origin, float radius, Vector2 velocity) {
+    public CircularEntity(Vector2 origin, float radius) {
         this.origin = origin;
         this.radius = radius;
-        this.velocity = velocity;
     }
 
     @Override
@@ -71,13 +68,7 @@ public class CircularEntity implements Entity, Collidable, Rotatable {
 
     @Override
     public void update(float deltaTime) {
-        origin.add(velocity.x * deltaTime, velocity.y * deltaTime);
-        // if (origin.x - radius < 0 || origin.x + radius > Gdx.graphics.getWidth()) {
-        // velocity.x = -velocity.x;
-        // }
-        // if (origin.y - radius < 0 || origin.y + radius > Gdx.graphics.getHeight()) {
-        // velocity.y = -velocity.y;
-        // }
+        // nothing to do here for now...
     }
 
     @Override
