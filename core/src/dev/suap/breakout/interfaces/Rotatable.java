@@ -24,6 +24,9 @@ public interface Rotatable {
      */
     public void setOrigin(Vector2 origin);
 
+    public void setOriginX(float x);
+    public void setOriginY(float y);
+
     /**
      * @return Current rotation in degrees.
      */

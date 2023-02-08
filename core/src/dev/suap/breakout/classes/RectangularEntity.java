@@ -38,6 +38,10 @@ public class RectangularEntity extends Rectangle implements Entity, Rotatable, C
 		this(origin, width, height, 0);
 	}
 
+	public RectangularEntity(){
+		super();
+	}
+
 	/**
 	 * Contructs a rectangle.
 	 * 
@@ -129,6 +133,16 @@ public class RectangularEntity extends Rectangle implements Entity, Rotatable, C
 	@Override
 	public void setOrigin(Vector2 origin) {
 		this.translationMatrix = origin;
+	}
+
+	@Override
+	public void setOriginX(float x) {
+		this.translationMatrix.x = x;
+	}
+
+	@Override
+	public void setOriginY(float y) {
+		this.translationMatrix.y = y;
 	}
 
 	@Override
