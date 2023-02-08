@@ -231,4 +231,14 @@ public class RectangularEntity extends Rectangle implements Entity, Rotatable, C
 	public void resolveCollision() {
 		this.inCollision = false;
 	}
+
+	@Override
+	public float getOriginX() {
+		return translationMatrix.x;
+	}
+
+	@Override
+	public float getOriginY() {
+		return translationMatrix.y;
+	}
 }

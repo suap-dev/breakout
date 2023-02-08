@@ -19,6 +19,9 @@ public interface Rotatable {
      */
     public Vector2 getOrigin();
 
+    public float getOriginX();
+    public float getOriginY();
+
     /**
      * @param origin A point around which the rotation is applied.
      */
