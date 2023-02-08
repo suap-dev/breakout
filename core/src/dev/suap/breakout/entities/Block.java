@@ -3,17 +3,22 @@ package dev.suap.breakout.entities;
 
 import java.util.Random;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.Array;
 
 import dev.suap.breakout.classes.RectangularEntity;
-import dev.suap.breakout.interfaces.Collidable;
 
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 
-public class Block extends RectangularEntity implements Collidable {
+public class Block extends RectangularEntity{
+    public Block(Vector2 origin, float width, float height, float rotation) {
+        super(origin, width, height, rotation);
+    }
+
+    public Block(Vector2 origin, float width, float height) {
+        super(origin, width, height);
+    }
 
     public Block(float x, float y, float width, float height, float rotation) {
         super(x, y, width, height, rotation);
