@@ -38,7 +38,7 @@ public class RectangularEntity extends Rectangle implements Entity, Rotatable, C
 		this(origin, width, height, 0);
 	}
 
-	public RectangularEntity(){
+	public RectangularEntity() {
 		super();
 	}
 
@@ -197,40 +197,38 @@ public class RectangularEntity extends Rectangle implements Entity, Rotatable, C
 		return this;
 	}
 
-	
+	@Override
+	public float getLeft() {
+		return getX();
+	}
 
-    @Override
-    public float getLeft() {
-        return getX();
-    }
+	@Override
+	public float getRight() {
+		return getX() + getWidth();
+	}
 
-    @Override
-    public float getRight() {
-        return getX() + getWidth();
-    }
+	@Override
+	public float getBottom() {
+		return getY();
+	}
 
-    @Override
-    public float getBottom() {
-        return getY();
-    }
+	@Override
+	public float getTop() {
+		return getY() + getHeight();
+	}
 
-    @Override
-    public float getTop() {
-        return getY() + getHeight();
-    }
+	@Override
+	public boolean isInCollision() {
+		return this.inCollision;
+	}
 
-    @Override
-    public boolean isInCollision() {
-        return this.inCollision;
-    }
+	@Override
+	public void markAsColliding() {
+		this.inCollision = true;
+	}
 
-    @Override
-    public void markAsColliding() {
-        this.inCollision = true;
-    }
-
-    @Override
-    public void resolveCollision() {
-        this.inCollision = false;
-    }
+	@Override
+	public void resolveCollision() {
+		this.inCollision = false;
+	}
 }
