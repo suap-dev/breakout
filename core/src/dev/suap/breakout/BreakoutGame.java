@@ -7,13 +7,17 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Array.ArrayIterator;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 import dev.suap.breakout.entities.Ball;
 import dev.suap.breakout.entities.Block;
 import dev.suap.breakout.entities.Paddle;
 
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.PerspectiveCamera;
 
 public class BreakoutGame extends ApplicationAdapter {
 	ShapeRenderer renderer;
@@ -24,8 +28,13 @@ public class BreakoutGame extends ApplicationAdapter {
 	ArrayIterator<Block> iter;
 	Block b;
 
+	private Viewport viewport;
+	private Camera camera;
+
 	@Override
 	public void create() {
+		camera = new PerspectiveCamera();
+		viewport = new FitViewport(4, 3, camera);
 		renderer = new ShapeRenderer();
 
 		float width = Gdx.graphics.getWidth();
@@ -79,5 +88,11 @@ public class BreakoutGame extends ApplicationAdapter {
 		ball.draw(renderer);
 		// and put the frame in it
 		renderer.end();
+	}
+
+	@Override
+	public void resize(int width, int height) {
+		viewport.update(width, height);
+		camera.update();
 	}
 }
