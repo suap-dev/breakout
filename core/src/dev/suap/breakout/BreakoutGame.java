@@ -36,7 +36,8 @@ public class BreakoutGame extends ApplicationAdapter {
 				120.0f, 20.0f);
 		paddle.setColor(Color.ROYAL);
 
-		ball = paddle.spawnBall(15, 400);
+		ball = paddle.spawnBall(15,
+				new Vector2(200, 250));
 
 		blocks = Block.blockBatch(
 				new Vector2((float) 0 + 8, height / 2),
