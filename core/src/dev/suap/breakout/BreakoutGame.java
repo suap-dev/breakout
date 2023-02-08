@@ -12,6 +12,7 @@ import dev.suap.breakout.entities.Ball;
 import dev.suap.breakout.entities.Block;
 import dev.suap.breakout.entities.Paddle;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 
 public class BreakoutGame extends ApplicationAdapter {
@@ -36,8 +37,10 @@ public class BreakoutGame extends ApplicationAdapter {
 				-300);
 
 		paddle = new Paddle(
-				width / 2, 20,
-				120, 20);
+				new Vector2(width / 2, 20),
+				120.0f, 20.0f
+		);
+		paddle.setColor(Color.ROYAL);
 
 		blocks = Block.blockBatch(
 				new Vector2((float) 0 + 8, height / 2),
@@ -53,7 +56,6 @@ public class BreakoutGame extends ApplicationAdapter {
 		paddle.update(deltaTime);
 		// ball moves on its own
 		ball.update(deltaTime);
-
 
 		// clear the screen
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
