@@ -8,6 +8,8 @@ import dev.suap.breakout.interfaces.Collidable;
 
 public class Ball extends CircularEntity {
     private Vector2 velocity;
+    private final float screenWidth;
+    private final float screenHeight;
 
     /**
      * @param x        Origin x component.
@@ -26,11 +28,15 @@ public class Ball extends CircularEntity {
     public Ball(float x, float y, float radius, float velocityX, float velocityY) {
         super(new Vector2(x, y), radius);
         this.velocity = new Vector2(velocityX, velocityY);
+        screenHeight = Gdx.graphics.getHeight();
+        screenWidth = Gdx.graphics.getWidth();
     }
 
     public Ball(Vector2 origin, float radius, Vector2 velocity) {
         super(origin, radius);
         this.velocity = velocity;
+        screenHeight = Gdx.graphics.getHeight();
+        screenWidth = Gdx.graphics.getWidth();
     }
 
     public Vector2 getVelocity() {
@@ -48,10 +54,10 @@ public class Ball extends CircularEntity {
     public void update(float deltaTime) {
         super.update(deltaTime);
         origin.add(velocity.x * deltaTime, velocity.y * deltaTime);
-        if (origin.x - radius < 0 || origin.x + radius > Gdx.graphics.getWidth()) {
+        if (origin.x - radius < 0 || origin.x + radius > screenWidth) {
             velocity.x = -velocity.x;
         }
-        if (origin.y - radius < 0 || origin.y + radius > Gdx.graphics.getHeight()) {
+        if (origin.y - radius < 0 || origin.y + radius > screenHeight) {
             velocity.y = -velocity.y;
         }
     }
