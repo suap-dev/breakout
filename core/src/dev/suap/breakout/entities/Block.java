@@ -12,6 +12,8 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 
 public class Block extends RectangularEntity{
+    private static final Random random = new Random();
+    
     public Block(Vector2 origin, float width, float height, float rotation) {
         super(origin, width, height, rotation);
     }
@@ -51,12 +53,11 @@ public class Block extends RectangularEntity{
 
         Block b;
         Color c = Color.PINK;
-        Random r = new Random();
         for (float blockY = bottom; blockY + blockHeight <= top; blockY += deltaY) {
             for (float blockX = left; blockX + blockWidth <= right; blockX += deltaX) {
-                b = new Block(blockX, blockY, blockWidth, blockHeight, r.nextInt(720)-360);
+                b = new Block(blockX, blockY, blockWidth, blockHeight, random.nextInt(720)-360);
                 b.setColor(c.lerp(Color.ORANGE, 0.025f).cpy());
-                b.addInterpolatedRotation(0, r.nextFloat()*2, Interpolation.swingOut);
+                b.addInterpolatedRotation(0, random.nextFloat()*2, Interpolation.swingOut);
                 blocks.add(b);
             }
         }
