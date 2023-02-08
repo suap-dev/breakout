@@ -31,18 +31,12 @@ public class BreakoutGame extends ApplicationAdapter {
 		float width = Gdx.graphics.getWidth();
 		float height = Gdx.graphics.getHeight();
 
-		// ball = new Ball(
-		// 		width / 2, height / 4,
-		// 		15,
-		// 		-300);
-
 		paddle = new Paddle(
 				new Vector2(width / 2, 20),
-				120.0f, 20.0f
-		);
+				120.0f, 20.0f);
 		paddle.setColor(Color.ROYAL);
 
-		ball = paddle.spawnBall(15, 0);
+		ball = paddle.spawnBall(15, 400);
 
 		blocks = Block.blockBatch(
 				new Vector2((float) 0 + 8, height / 2),
