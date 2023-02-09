@@ -7,9 +7,13 @@ import com.badlogic.gdx.math.Vector2;
 import dev.suap.breakout.classes.RectangularEntity;
 
 public class Paddle extends RectangularEntity {
+    
+    private boolean hasBall = false;
     private Ball ball;
     private Vector2 ballLaunchVelocity;
-    private boolean hasBall = false;
+
+    private boolean hasCursor = false;
+
     private final float screenWidth;
 
     public Paddle(Vector2 origin, float width, float height, float rotation) {
@@ -44,6 +48,16 @@ public class Paddle extends RectangularEntity {
         return ball;
     }
 
+    public void catchCursor() {        
+		Gdx.input.setCursorCatched(true);
+        hasCursor = true;
+    }
+
+    public void releaseCursor(){
+		Gdx.input.setCursorCatched(false);
+        hasCursor = false;
+    }
+
     public Ball spawnBall(float radius, float velocity) {
         float v = (float) (Math.abs(velocity) / Math.sqrt(2));
         return spawnBall(radius, new Vector2(v, v));
@@ -62,6 +76,7 @@ public class Paddle extends RectangularEntity {
         super.update(deltaTime);
 
         setOriginX(Gdx.input.getX());
+        if(hasCursor) Gdx.input.setCursorPosition((int)getOriginX(), (int)getOriginY());
 
         if (getLeft() < 1)
             setOriginX(1 + getWidth() / 2);
